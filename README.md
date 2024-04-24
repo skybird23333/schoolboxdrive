@@ -14,3 +14,6 @@ hence makes it a perfect storage solution.
 
 ## Usage
 Open configuration in the application then follow instructions.
+
+## Credits
+This project is based on https://github.com/Deluze/electron-vue-template
