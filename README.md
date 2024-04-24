@@ -1,6 +1,8 @@
 # SchoolboxDrive
 Next-gen cloud storage solution in the comfort of your own schoolbox instance!
 
+![img.png](img.png)
+
 > **Warning**
 > 
 > This tool was created for ~~shits and giggles~~ research and educational purposes.
