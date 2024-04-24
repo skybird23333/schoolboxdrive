@@ -27,6 +27,11 @@ jobs:
           npm run build:win
         env:
           GH_TOKEN: secrets.GITHUB_TOKEN
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: electron-app
+          path: 'dist/schoolboxdrive Setup 0.1.0.exe'
 
       - name: Create release
         id: create_release
@@ -37,11 +42,6 @@ jobs:
           tag_name: ${{ github.event.release.tag_name }}
           release_name: Release ${{ github.event.release.tag_name }}
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: electron-app
-          path: 'dist/schoolboxdrive Setup 0.1.0.exe'
 
       - name: Publish release
         id: publish_release
