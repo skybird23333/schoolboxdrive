@@ -1,7 +1,7 @@
 {
-  "name": "electron-vue-template",
+  "name": "schoolboxdrive",
   "version": "0.1.0",
-  "description": "A minimal Electron + Vue application",
+  "description": "Next gen cloud storage solution",
   "main": "build/main/main.js",
   "scripts": {
     "dev": "node scripts/dev-server.js",
