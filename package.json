@@ -10,10 +10,10 @@
     "build:mac": "node scripts/build.js && electron-builder --mac",
     "build:linux": "node scripts/build.js && electron-builder --linux"
   },
-  "repository": "https://github.com/deluze/electron-vue-template",
+  "repository": "https://github.com/skybird23333/schoolboxdrive",
   "author": {
-    "name": "Deluze",
-    "url": "https://github.com/Deluze"
+    "name": "skybird23333",
+    "url": "https://github.com/skybird23333"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.1",
