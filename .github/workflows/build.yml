@@ -2,7 +2,7 @@ name: Build and Publish Electron App
 
 on:
   release:
-    types: [published]
+    types: [published, edited]
   workflow_dispatch:
 
 jobs:
