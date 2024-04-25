@@ -22,7 +22,7 @@ const props = defineProps<{
 
 const { uploaded, fileData, name } = props.fileData
 
-const status = ref<'toBeUploaded' | 'uploading' | 'available' | 'errored'>(uploaded ? 'available' : 'toBeUploaded')
+const status = ref<'toBeUploaded' | 'uploading' | 'available' | 'processing' | 'errored'>(uploaded ? 'available' : 'toBeUploaded')
 const progress = ref(0)
 
 const emit = defineEmits<{
@@ -48,6 +48,7 @@ const onUploadFile = () => {
     if (event.lengthComputable) {
       const percentComplete = (event.loaded / event.total) * 100;
       console.log(`Upload progress: ${percentComplete}%`);
+      if(percentComplete == 100) status.value = 'processing'
       progress.value = percentComplete
     }
   };
@@ -73,6 +74,7 @@ const onUploadFile = () => {
       emit('onFileUploaded', props.fileData)
     } else {
       console.error('Failed to upload file:', xhr.statusText);
+      console.error(xhr.responseText)
       status.value = 'errored'
     }
   };
@@ -95,6 +97,14 @@ const onUploadFile = () => {
       </div>
     </Card>
   </div>
+  <div v-if="status == 'processing'">
+    <Card color="blue">
+      <b>{{ name }}</b> <span style="color:var(--foreground-secondary)">Processing...</span>
+      <div class="prog-container">
+        <div class="prog-content indeterminate" :style="`width: ${100}%`" />
+      </div>
+    </Card>
+  </div>
   <div v-if="status == 'available'">
     <Card color="green">
       <b>{{ name }}</b> <ClickToCopyComponent :value="props.fileData.url" />
@@ -103,6 +113,8 @@ const onUploadFile = () => {
   <div v-if="status == 'errored'">
     <Card color="red">
       <b>{{ name }}</b> <span style="color:var(--foreground-secondary)">Could not upload :(</span>
+      <Button @click="status = 'toBeUploaded'">Reupload</Button>
+      <code>Press ctrl + shift + I and view Console for more information.</code>
     </Card>
   </div>
 </template>

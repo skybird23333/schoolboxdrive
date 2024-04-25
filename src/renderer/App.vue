@@ -80,7 +80,11 @@ provide('token', config.token)
 
       Schoolbox Address <Input placeholder="demo.schoolbox.com.au" v-model="config.address" @input="onConfigUpdate"></Input>
       Token <Input placeholder="eralhnioearhnoi[aehn[oiatehno" v-model="config.token" @input="onConfigUpdate"></Input>
+      <br>
+      Your schoolbox address should only contain the domain/subdomain, do not include https:// or any trailing slashes etc.
+      <br>
       <Button @click="tokenGuideOpened = !tokenGuideOpened">How do I get a token?</Button>
+
 
       <Card v-if="tokenGuideOpened">
       <h3>Getting your token</h3>

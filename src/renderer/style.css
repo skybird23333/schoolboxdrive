@@ -319,6 +319,23 @@ h3 {
   height: 15px;
 }
 
+.prog-content.indeterminate {
+  background-color: var(--foreground-primary);
+
+  animation: 1s infinite alternate ease-out breathing-color--dark;
+}
+
+@keyframes breathing-color--dark {
+  from
+  {
+    background-color: var(--foreground-primary);
+  }
+  to
+  {
+    background-color: var(--background-tertiary);
+  }
+}
+
 /* The sidebar menu */
 .side-contents {
   height: 75%;
