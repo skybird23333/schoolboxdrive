@@ -20,23 +20,19 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Extract Version
-        id: version
         run: |
-          echo "VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
+          npm install
 
       - name: Build Electron app
-        run: npm run build:win
+        run: |
+          npm run build:win
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+          GH_TOKEN: secrets.GITHUB_TOKEN
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: electron-app
-          path: dist/schoolboxdrive_Setup_${{ env.VERSION }}.exe
+          path: 'dist/schoolboxdrive Setup 0.1.0.exe'
 
       - name: Create release
         id: create_release
@@ -44,19 +40,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref_name || github.event.release.tag_name || 'v0.1.0' }}
-          release_name: Release ${{ github.ref_name || github.event.release.tag_name || 'v0.1.0' }}
-          body: |
-            Changelog or release notes go here.
-          draft: false
-          prerelease: false
+          tag_name: 0.0.1
+          release_name: Release ${{ github.event.release.tag_name }}
 
-      - name: Publish release asset
+
+      - name: Publish release
+        id: publish_release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/schoolboxdrive_Setup_${{ env.VERSION }}.exe
-          asset_name: schoolboxdrive_Setup_${{ env.VERSION }}.exe
-          asset_content_type: application/x-msdownload
+          asset_path: 'dist/schoolboxdrive Setup 0.1.0.exe'
+          asset_name: electron-app.exe
+          asset_content_type: application/zip
