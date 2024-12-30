@@ -46,14 +46,30 @@ const onConfigUpdate = () => {
 }
 
 const onSelectFile = async () => {
-  const fileData = await window.electronAPI.selectFile()
+  const filesData = await window.electronAPI.selectFiles()
 
-  files.push({
-    uploaded: false,
-    name: fileData.filePath.split('\\').pop() || 'file.txt',
-    size: fileData.fileContent.byteLength,
-    fileData
-  })
+  console.log(filesData)
+
+  for (const fileData of filesData) {
+    files.push({
+      uploaded: false,
+      name: fileData.filePath.split('\\').pop() || 'file.txt',
+      size: fileData.fileContent.byteLength,
+      fileData
+    })
+  }
+}
+
+const listFileItems = ref<[]>([])
+
+const onUploadAll = () => {
+
+  console.log(listFileItems.value)
+  for (const listFileItem of listFileItems.value) {
+    if(listFileItem.status === 'toBeUploaded') {
+      listFileItem.onUploadFile()
+    }
+  }
 }
 
 const onFileUploaded = (fileData: File) => {
@@ -99,9 +115,11 @@ provide('token', config.token)
 
     </Card>
     <UploadFileItem @click="onSelectFile" />
+
+    <Button type="primary" @click="onUploadAll"> Upload All In Queue </Button>
   </div>
   <div class="content-content">
-    <ListFileItem v-for="file in files" :file-data="file" @onFileUploaded="onFileUploaded" />
+    <ListFileItem v-for="file in files" :file-data="file" @onFileUploaded="onFileUploaded" ref="listFileItems"/>
   </div>
 
 </template>

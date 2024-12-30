@@ -1,4 +1,4 @@
-import {app, BrowserWindow, ipcMain, session, dialog} from 'electron';
+  import {app, BrowserWindow, ipcMain, session, dialog} from 'electron';
 import {join} from 'path';// In your main process (main.ts)
 import * as fs from 'fs';
 import * as http from 'http';
@@ -61,6 +61,17 @@ ipcMain.handle('upload-file', async () => {
       filePath: filePaths[0],
       fileContent
     };
+  }
+});
+
+ipcMain.handle('upload-files', async () => {
+  const { filePaths } = await dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] });
+  if (filePaths.length > 0) {
+    const files = filePaths.map(filePath => ({
+      filePath,
+      fileContent: fs.readFileSync(filePath)
+    }));
+    return files;
   }
 });
 

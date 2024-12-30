@@ -80,6 +80,11 @@ const onUploadFile = () => {
   };
 }
 
+defineExpose({
+  onUploadFile,
+  status
+})
+
 </script>
 
 <template>
