@@ -54,3 +54,4 @@ jobs:
           asset_path: 'dist/schoolboxdrive Setup 0.1.0.exe'
           asset_name: electron-app.exe
           asset_content_type: application/zip
+          tag_name: '0.1.0'
